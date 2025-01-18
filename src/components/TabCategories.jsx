@@ -2,8 +2,15 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import JobCard from './JobCard'
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import useJobs from '../hooks/useJobs';
 
 const TabCategories = () => {
+
+//  custom hook eta useJobs() er maddhome data fetch kore
+  const [jobs] = useJobs();
+  
   return (
     <Tabs>
       <div className=' container px-6 py-10 mx-auto'>
@@ -25,25 +32,28 @@ const TabCategories = () => {
         </div>
         <TabPanel>
           <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+          {jobs.filter(item => item.category === "Web Development").map((job) => (
+            <JobCard key={job._id} job={job} />
+            
+          ))}
           </div>
         </TabPanel>
 
         <TabPanel>
           <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            <JobCard />
-            <JobCard />
+          {jobs.filter(item=> item.category === "Graphics Design").map((job) => (
+            <JobCard key={job._id} job={job} />
+            
+          ))}
           </div>
         </TabPanel>
 
         <TabPanel>
           <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            <JobCard /> <JobCard />
-            <JobCard /> <JobCard />
-            <JobCard /> <JobCard />
+          {jobs.filter(item=>item.category === "Digital Marketing").map((job) => (
+            <JobCard key={job._id} job={job} />
+            
+          ))}
           </div>
         </TabPanel>
       </div>

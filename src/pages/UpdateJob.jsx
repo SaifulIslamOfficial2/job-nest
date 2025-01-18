@@ -1,10 +1,38 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useParams } from 'react-router-dom'
 
 const UpdateJob = () => {
   const [startDate, setStartDate] = useState(new Date())
+  const [job , setJob] = useState ({});
+  const id = useParams();
 
+  useEffect(()=>{
+    axios(`${import.meta.env.VITE_API_URL}/jobs/${id}`)
+    .then((res)=>{
+      setJob(res.data)
+    })
+  },[id])
+
+
+  console.log(`${import.meta.env.VITE_API_URL}/jobs/${id}`); 
+const {
+  jobTitle, 
+  email, 
+  buyer,
+  category, 
+  min_price,
+  max_price, 
+  description,
+  deadline, 
+  total_bids,
+} = job ||{};
+
+
+
+  console.log(job);
   return (
     <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>
       <section className=' p-2 md:p-6 mx-auto bg-white rounded-md shadow-md '>
@@ -22,6 +50,7 @@ const UpdateJob = () => {
                 id='job_title'
                 name='job_title'
                 type='text'
+                defaultValue={jobTitle}
                 className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring'
               />
             </div>
