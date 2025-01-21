@@ -5,11 +5,12 @@ import { format } from "date-fns";
 
 const JobCard = ({ job }) => {
 
-  const { jobTitle, category, min_price, max_price, total_bids, deadline } =
+  const { jobTitle, category, min_price, max_price, total_bids, deadline,_id } =
     job;
+    console.log(total_bids);
   return (
     <Link
-      to={`/job/1`}
+      to={`/job/${_id}`}
       className="w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all"
     >
       <div className="flex items-center justify-between">
@@ -32,7 +33,7 @@ const JobCard = ({ job }) => {
           {min_price} - {max_price}
         </p>
         <p className="mt-2 text-sm font-bold text-gray-600 ">
-          Total Bids: {total_bids}{" "}
+          Total Bids: {total_bids}
         </p>
       </div>
     </Link>

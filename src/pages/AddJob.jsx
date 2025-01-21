@@ -12,6 +12,7 @@ const AddJob = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  console.log(user);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,8 +33,9 @@ const AddJob = () => {
       email, 
       buyer:{
         _id: user._id,
-        name: user.name,
+        name: user?.displayName,
         email: user.email,
+        image : user.photoURL,
       },
       category, 
       min_price,
